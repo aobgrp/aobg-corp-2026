@@ -11,7 +11,8 @@ export function ContactForm() {
     setStatus('loading')
     setErrorMessage('')
 
-    const formData = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const formData = new FormData(form)
     const data = Object.fromEntries(formData.entries())
 
     try {
@@ -28,7 +29,7 @@ export function ContactForm() {
       }
       
       setStatus('success')
-      e.currentTarget.reset()
+      form.reset()
       
       setTimeout(() => {
         setStatus('idle')
