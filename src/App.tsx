@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Building2,
   Clock3,
@@ -76,8 +76,11 @@ const supportCards = [
 function App() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <Header />
-      <main>
+      <main id="main-content">
         <Hero />
         <About />
         <MemberServices />
@@ -97,17 +100,33 @@ function Header() {
     { label: 'Contact Us', href: '#contact' },
   ]
 
+  useEffect(() => {
+    if (!isMenuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMenuOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [isMenuOpen])
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/20 bg-background/60 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all duration-300">
       <div className="mx-auto flex h-28 w-full max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
-        <a href="#top" className="flex items-center gap-3" aria-label="AOBG home">
+        <a href="#top" className="flex items-center gap-3" aria-label="American Online Benefits Group — home">
           <img
             src="/brand/aobg-logo.png"
-            alt="American Online Benefits Group"
+            alt=""
+            width={264}
+            height={88}
             className="h-[88px] w-auto"
           />
         </a>
-        
+
         {/* Desktop Nav */}
         <nav
           className="hidden items-center gap-7 text-sm font-semibold text-muted-foreground md:flex"
@@ -119,22 +138,25 @@ function Header() {
             </a>
           ))}
         </nav>
-        
+
         <div className="hidden items-center gap-4 md:flex">
           <Button asChild size="lg" className="px-8 text-base font-bold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
-            <a href={memberPortalUrl} target="_blank" rel="noreferrer">
+            <a href={memberPortalUrl} target="_blank" rel="noopener noreferrer">
               Member Portal
             </a>
           </Button>
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button 
-          className="md:hidden flex items-center justify-center p-2 text-foreground"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle mobile menu"
+        <button
+          type="button"
+          className="md:hidden flex items-center justify-center p-2 text-foreground rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          onClick={() => setIsMenuOpen((open) => !open)}
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
         >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isMenuOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
         </button>
       </div>
 
@@ -142,16 +164,17 @@ function Header() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl overflow-hidden"
           >
-            <nav className="flex flex-col px-5 py-6 space-y-6">
+            <nav className="flex flex-col px-5 py-6 space-y-6" aria-label="Mobile navigation">
               {navLinks.map((link) => (
-                <a 
-                  key={link.href} 
+                <a
+                  key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
                   className="text-lg font-semibold text-foreground hover:text-primary transition-colors"
@@ -161,7 +184,7 @@ function Header() {
               ))}
               <div className="pt-2 border-t border-border/50">
                 <Button asChild size="lg" className="w-full mt-4 h-14 text-lg font-bold">
-                  <a href={memberPortalUrl} target="_blank" rel="noreferrer">
+                  <a href={memberPortalUrl} target="_blank" rel="noopener noreferrer">
                     Member Portal
                   </a>
                 </Button>
@@ -214,12 +237,12 @@ function Hero() {
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row w-full sm:w-auto">
             <Button asChild size="lg" className="h-14 px-10 text-lg font-bold w-full sm:w-auto bg-white text-primary shadow-lg shadow-black/10 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-xl hover:shadow-black/20">
-              <a href={memberPortalUrl} target="_blank" rel="noreferrer">
+              <a href={memberPortalUrl} target="_blank" rel="noopener noreferrer">
                 Member Portal
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="h-14 px-10 text-lg font-bold w-full sm:w-auto border-white/30 bg-white/10 text-white backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-white/20 hover:text-white">
-              <a href="#member-services">
+              <a href="#contact">
                 Contact Us
               </a>
             </Button>
@@ -235,9 +258,9 @@ function About() {
     <section id="about" className="relative isolate py-20 sm:py-32">
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent to-muted/30" />
       <div className="mx-auto grid w-full max-w-7xl gap-10 sm:gap-12 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] items-center">
-        {/* The image card is hidden on mobile, and the user requested the title to be hidden too */}
+        {/* Image card shows on lg+; on mobile the About copy stands alone. */}
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -246,7 +269,9 @@ function About() {
         >
           <img
             src="/brand/about-image.jpg"
-            alt="About AOBG"
+            alt=""
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#022A4E]/95 via-primary/40 to-transparent" />
@@ -402,7 +427,7 @@ function SupportCard({
             <a
               href={card.actionHref}
               target={card.actionExternal ? '_blank' : undefined}
-              rel={card.actionExternal ? 'noreferrer' : undefined}
+              rel={card.actionExternal ? 'noopener noreferrer' : undefined}
               className="flex items-center justify-center"
             >
               {card.action}
@@ -458,7 +483,7 @@ function Footer() {
               key={link.label}
               href={link.href}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-primary-foreground/80 underline-offset-4 transition-colors hover:text-primary-foreground hover:underline"
             >
               {link.label}
