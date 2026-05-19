@@ -40,9 +40,6 @@ export default function ClosingPage() {
           className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl border border-border/40 overflow-hidden"
           aria-label="Wind-Down Notice"
         >
-          {/* Color accent bar at top of card */}
-          <div className="h-1.5 w-full bg-gradient-to-r from-primary to-[#022A4E]" />
-
           <div className="px-8 py-10 sm:px-14 sm:py-12 space-y-6 text-foreground">
             {/* Date */}
             <p className="text-sm text-muted-foreground text-right">
