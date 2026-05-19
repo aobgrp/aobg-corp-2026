@@ -125,13 +125,13 @@ export default function ClosingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-primary text-primary-foreground">
+      <footer className="bg-[#f0f4f8]">
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center gap-6 px-5 py-12 sm:px-8 text-center">
-          <p className="text-xs text-primary-foreground/60 leading-relaxed max-w-3xl">
+          <p className="text-xs text-muted-foreground leading-relaxed max-w-3xl">
             American Online Benefits Group operates as an insurance agency that does business under
             the name Gallagher Affinity Insurance Services, Inc. License Nos. IL 100310679 / CA 0783129
           </p>
-          <p className="text-sm text-primary-foreground/80">
+          <p className="text-sm text-foreground/70">
             &copy; {new Date().getFullYear()} American Online Benefits Group, a Gallagher Company
           </p>
           <nav
@@ -144,7 +144,7 @@ export default function ClosingPage() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-foreground/80 underline-offset-4 transition-colors hover:text-primary-foreground hover:underline"
+                className="text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
               >
                 {link.label}
               </a>
