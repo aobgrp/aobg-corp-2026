@@ -24,7 +24,7 @@ export default function ClosingPage() {
         <div className="flex justify-center">
           <a href="/" aria-label="American Online Benefits Group — home">
             <img
-              src="/brand/aobg-logo.png"
+              src="/brand/aobg-logo-white.png"
               alt="American Online Benefits Group"
               width={264}
               height={88}
