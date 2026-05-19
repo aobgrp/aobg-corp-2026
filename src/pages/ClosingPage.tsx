@@ -129,7 +129,7 @@ export default function ClosingPage() {
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center gap-6 px-5 py-12 sm:px-8 text-center">
           <a href="https://gallagher-affinity.com" target="_blank" rel="noopener noreferrer">
             <img
-              src="/brand/gallgher-affinity.png"
+              src="/brand/gallagher-affinity.png"
               alt="Gallagher Affinity"
               className="h-10 w-auto"
             />
