@@ -35,7 +35,7 @@ export default function ClosingPage() {
       </div>
 
       {/* Letter card — overlaps the gradient band */}
-      <main className="flex-1 flex flex-col items-center px-5 sm:px-8 -mt-20 pb-16">
+      <main className="relative z-10 flex-1 flex flex-col items-center px-5 sm:px-8 -mt-20 pb-16">
         <article
           className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl border border-border/40 overflow-hidden"
           aria-label="Wind-Down Notice"
