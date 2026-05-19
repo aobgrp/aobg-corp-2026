@@ -47,9 +47,9 @@ export default function ClosingPage() {
             </p>
 
             {/* Subject line */}
-            <h3 className="text-sm font-bold text-primary uppercase tracking-wide">
+            <h1 className="text-sm font-bold text-primary uppercase tracking-wide">
               Important Notice Regarding American Online Benefits Group
-            </h3>
+            </h1>
 
             {/* Salutation */}
             <p>To Our Valued Members and Agents,</p>
