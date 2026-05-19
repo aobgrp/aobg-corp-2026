@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AlertCircle, CheckCircle2, Loader2, Send } from 'lucide-react'
+import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export function ContactForm() {

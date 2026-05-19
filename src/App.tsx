@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import {
-  ArrowRight,
   Building2,
   Clock3,
-  ExternalLink,
   Mail,
   Menu,
   Phone,
