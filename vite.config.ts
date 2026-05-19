@@ -4,6 +4,15 @@ import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
 import type { Plugin } from 'vite'
 
+function escapeHtml(input: string): string {
+  return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 // Local dev plugin: serves /api/contact without needing Vercel CLI
 function localApiPlugin(): Plugin {
   return {
@@ -20,11 +29,23 @@ function localApiPlugin(): Plugin {
         req.on('data', (chunk: Buffer) => (body += chunk.toString()))
         req.on('end', async () => {
           try {
-            const { name, email, subject, message } = JSON.parse(body)
+            const parsed = JSON.parse(body || '{}')
+            const normalize = (v: unknown) => (typeof v === 'string' ? v.trim() : '')
+            const name = normalize(parsed.name)
+            const email = normalize(parsed.email)
+            const subject = normalize(parsed.subject)
+            const message = normalize(parsed.message)
+            const honeypot = normalize(parsed.website)
+
+            if (honeypot) {
+              res.writeHead(200, { 'Content-Type': 'application/json' })
+              res.end(JSON.stringify({ ok: true }))
+              return
+            }
 
             if (!name || !email || !subject || !message) {
               res.writeHead(400, { 'Content-Type': 'application/json' })
-              res.end(JSON.stringify({ message: 'Missing required fields' }))
+              res.end(JSON.stringify({ message: 'All fields are required.' }))
               return
             }
 
@@ -49,12 +70,12 @@ function localApiPlugin(): Plugin {
               replyTo: email,
               html: `
                 <h2>New Message from AOBG Website</h2>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Subject:</strong> ${subject}</p>
+                <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+                <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+                <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
                 <br/>
                 <p><strong>Message:</strong></p>
-                <p>${message}</p>
+                <p>${escapeHtml(message).replace(/\n/g, '<br/>')}</p>
               `,
             })
 
