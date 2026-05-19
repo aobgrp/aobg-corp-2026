@@ -28,7 +28,7 @@ export default function ClosingPage() {
               alt="American Online Benefits Group"
               width={264}
               height={88}
-              className="h-20 w-auto drop-shadow-lg"
+              className="h-40 w-auto drop-shadow-lg"
             />
           </a>
         </div>
