@@ -49,21 +49,13 @@ export default function ClosingPage() {
               [Date]
             </p>
 
-            {/* Recipient */}
-            <div className="space-y-0.5 text-sm">
-              <p className="font-semibold text-foreground">To Our Valued Members and Agents</p>
-              <p className="text-muted-foreground">American Online Benefits Group</p>
-            </div>
-
-            <Separator />
-
             {/* Subject line */}
             <p className="text-sm font-bold text-primary uppercase tracking-wide">
               Re: Important Notice Regarding American Online Benefits Group
             </p>
 
             {/* Salutation */}
-            <p>Dear Valued Member or Agent,</p>
+            <p>To Our Valued Members and Agents,</p>
 
             {/* Body */}
             <div className="space-y-4 leading-7 text-foreground/90">
