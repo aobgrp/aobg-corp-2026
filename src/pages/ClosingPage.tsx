@@ -97,19 +97,11 @@ export default function ClosingPage() {
               </p>
             </div>
 
-            {/* Closing */}
+            {/* Closing + signature */}
             <div className="space-y-1 pt-2">
               <p>With sincere appreciation,</p>
-            </div>
-
-            {/* Signature block */}
-            <div className="pt-4 space-y-1">
-              <p className="font-bold text-primary text-lg font-heading">
+              <p className="font-bold text-primary text-lg font-heading pt-1">
                 American Online Benefits Group
-              </p>
-              <p className="text-sm text-muted-foreground">Leadership Team</p>
-              <p className="text-sm text-muted-foreground">
-                A Gallagher Company &mdash; License Nos. IL 100310679 / CA 0783129
               </p>
             </div>
           </div>
