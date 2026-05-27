@@ -373,6 +373,23 @@ function ContactSection() {
           <div className="text-center mb-10">
             <h2 className="font-heading text-4xl font-extrabold text-primary sm:text-5xl">Contact Us</h2>
             <p className="mt-4 text-lg text-muted-foreground">Send our team a direct message and we'll get back to you shortly.</p>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+              <a
+                href="tel:18889182386"
+                className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
+              >
+                <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
+                888-918-2386
+              </a>
+              <span className="hidden text-border sm:inline" aria-hidden="true">·</span>
+              <a
+                href="mailto:members@aobgrp.com"
+                className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
+              >
+                <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
+                members@aobgrp.com
+              </a>
+            </div>
           </div>
           <ContactForm />
         </motion.div>
