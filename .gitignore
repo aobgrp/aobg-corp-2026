@@ -30,3 +30,6 @@ dist-ssr
 # Environment variables — never commit secrets
 .env.local
 .env.*.local
+
+# Pages staged for future release — keep local only
+src/pages/ClosingPage.tsx
