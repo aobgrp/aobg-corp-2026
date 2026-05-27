@@ -3,6 +3,7 @@ import {
   Building2,
   Clock3,
   Mail,
+  MapPin,
   Menu,
   Phone,
   UsersRound,
@@ -53,6 +54,7 @@ const supportCards = [
     phoneHref: 'tel:18889182386',
     email: 'members@aobgrp.com',
     emailHref: 'mailto:members@aobgrp.com',
+    address: 'PO Box 4049, Clinton, Iowa 52733',
     action: 'Open Member Portal',
     actionHref: memberPortalUrl,
     actionExternal: true,
@@ -412,6 +414,15 @@ function SupportCard({
             <ContactRow icon={Mail} label="Email" href={card.emailHref}>
               {card.email}
             </ContactRow>
+            {card.address && (
+              <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                <MapPin className="mt-0.5 text-white/80" aria-hidden="true" />
+                <span>
+                  <span className="block text-sm font-bold text-white">Mailing Address</span>
+                  <span className="block text-lg font-semibold text-white/90 mt-0.5">{card.address}</span>
+                </span>
+              </div>
+            )}
             <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
               <Clock3 className="mt-0.5 text-white/80" aria-hidden="true" />
               <div>
