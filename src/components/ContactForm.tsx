@@ -111,10 +111,10 @@ export function ContactForm() {
             name="subject"
             required
             disabled={disabled}
-            defaultValue="Member Service"
+            defaultValue="Member Services"
             className={`${inputClasses} cursor-pointer`}
           >
-            <option value="Member Service">Member Service</option>
+            <option value="Member Services">Member Services</option>
             <option value="Agents & Partners">Agents &amp; Partners</option>
           </select>
         </div>
