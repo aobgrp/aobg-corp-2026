@@ -427,7 +427,7 @@ function SupportCard({
               <Clock3 className="mt-0.5 text-white/80" aria-hidden="true" />
               <div>
                 <div className="text-sm font-bold text-white">Hours</div>
-                <div className="text-lg font-semibold text-white/90 mt-0.5">M-Th 9-5, Fri 9-4</div>
+                <div className="text-lg font-semibold text-white/90 mt-0.5">M-Th 9-5, Fri 9-4 CST</div>
               </div>
             </div>
           </div>
