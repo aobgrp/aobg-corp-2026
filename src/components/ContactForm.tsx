@@ -104,19 +104,19 @@ export function ContactForm() {
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor="subject" className="text-sm font-semibold text-foreground">
-            Subject <span className="text-destructive" aria-hidden="true">*</span>
+            Department <span className="text-destructive" aria-hidden="true">*</span>
           </label>
-          <input
+          <select
             id="subject"
             name="subject"
-            type="text"
             required
-            autoComplete="off"
-            maxLength={200}
             disabled={disabled}
-            className={inputClasses}
-            placeholder="How can we help you?"
-          />
+            defaultValue="Member Services"
+            className={`${inputClasses} cursor-pointer`}
+          >
+            <option value="Member Services">Member Services</option>
+            <option value="Agents & Partners">Agents &amp; Partners</option>
+          </select>
         </div>
 
         <div className="flex flex-col gap-1.5">
