@@ -296,16 +296,13 @@ function About() {
           <p>
             American Online Benefits Group is dedicated to providing our customers
             with quality and affordable health insurance products to protect them
-            and their families. We continue to grow and partner with leaders in
-            the industry, keeping us at the forefront of creating products to meet
-            the needs of those we cover.
+            and their families.
           </p>
           <p>
             Our member services department is trained to provide our customers
             with an excellent experience. They are available to answer policy
             questions and offer product education to members on understanding
-            how to fully utilize the benefits included in their plan. Customer
-            service is their top priority.
+            how to fully utilize the benefits included in their plan.
           </p>
           <p>
             We are a team dedicated to providing our customers with honest and
