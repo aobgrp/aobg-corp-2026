@@ -3,6 +3,7 @@ import {
   Building2,
   Clock3,
   Mail,
+  MapPin,
   Menu,
   Phone,
   UsersRound,
@@ -53,6 +54,7 @@ const supportCards = [
     phoneHref: 'tel:18889182386',
     email: 'members@aobgrp.com',
     emailHref: 'mailto:members@aobgrp.com',
+    address: 'PO Box 4049, Clinton, Iowa 52733',
     action: 'Open Member Portal',
     actionHref: memberPortalUrl,
     actionExternal: true,
@@ -294,21 +296,18 @@ function About() {
             About Us
           </h2>
           <p>
-            American Online Benefits Group is dedicated to providing our customers
+            American Online Benefits Group is dedicated to providing our members
             with quality and affordable health insurance products to protect them
-            and their families. We continue to grow and partner with leaders in
-            the industry, keeping us at the forefront of creating products to meet
-            the needs of those we cover.
+            and their families.
           </p>
           <p>
-            Our member services department is trained to provide our customers
+            Our member services department is trained to provide our members
             with an excellent experience. They are available to answer policy
             questions and offer product education to members on understanding
-            how to fully utilize the benefits included in their plan. Customer
-            service is their top priority.
+            how to fully utilize the benefits included in their plan.
           </p>
           <p>
-            We are a team dedicated to providing our customers with honest and
+            We are a team dedicated to providing our members with honest and
             ethical services. We are your trusted company when it comes to
             providing you with all the information required to make the best
             decision to fulfill the health insurance needs for you and your family.
@@ -415,6 +414,15 @@ function SupportCard({
             <ContactRow icon={Mail} label="Email" href={card.emailHref}>
               {card.email}
             </ContactRow>
+            {card.address && (
+              <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                <MapPin className="mt-0.5 text-white/80" aria-hidden="true" />
+                <span>
+                  <span className="block text-sm font-bold text-white">Mailing Address</span>
+                  <span className="block text-lg font-semibold text-white/90 mt-0.5">{card.address}</span>
+                </span>
+              </div>
+            )}
             <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
               <Clock3 className="mt-0.5 text-white/80" aria-hidden="true" />
               <div>
