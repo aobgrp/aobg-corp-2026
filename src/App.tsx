@@ -10,6 +10,7 @@ import {
   X,
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
+import { Analytics } from '@vercel/analytics/react'
 
 import { ContactForm } from '@/components/ContactForm'
 import { Button } from '@/components/ui/button'
@@ -89,6 +90,7 @@ function App() {
         <ContactSection />
       </main>
       <Footer />
+      <Analytics />
     </div>
   )
 }
