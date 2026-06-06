@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { Resend } from 'resend'
+import { checkBotId } from 'botid/server'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -26,6 +27,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
     return res.status(405).json({ message: 'Method not allowed' })
+  }
+
+  const botCheck = await checkBotId({ advancedOptions: { headers: req.headers } })
+  if (botCheck.isBot) {
+    return res.status(403).json({ message: 'Access denied' })
   }
 
   const body = (req.body ?? {}) as Record<string, unknown>
