@@ -59,22 +59,30 @@ const agentCard = {
 
 function AgentsPage() {
   useEffect(() => {
-    document.title = 'Agent Services | American Online Benefits Group'
-    const metaDesc = document.querySelector('meta[name="description"]')
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        'content',
-        'AOBG agent and partner support — access tools, contact the Agent Services team, and manage your agency portal.',
-      )
+    const setMeta = (selector: string, attr: string, value: string) => {
+      document.querySelector(selector)?.setAttribute(attr, value)
     }
+
+    document.title = 'Agent Services | American Online Benefits Group'
+    setMeta('meta[name="description"]', 'content', 'AOBG agent and partner support — access tools, contact the Agent Services team, and manage your agency portal.')
+    setMeta('link[rel="canonical"]', 'href', 'https://aobgrp.com/agents')
+    setMeta('meta[property="og:title"]', 'content', 'Agent Services | American Online Benefits Group')
+    setMeta('meta[property="og:description"]', 'content', 'AOBG agent and partner support — access tools, contact the Agent Services team, and manage your agency portal.')
+    setMeta('meta[property="og:url"]', 'content', 'https://aobgrp.com/agents')
+    setMeta('meta[property="og:image"]', 'content', 'https://aobgrp.com/brand/hero-healthcare.jpg')
+    setMeta('meta[name="twitter:title"]', 'content', 'Agent Services | American Online Benefits Group')
+    setMeta('meta[name="twitter:description"]', 'content', 'AOBG agent and partner support — access tools, contact the Agent Services team, and manage your agency portal.')
+
     return () => {
       document.title = 'American Online Benefits Group'
-      if (metaDesc) {
-        metaDesc.setAttribute(
-          'content',
-          'American Online Benefits Group provides quality, affordable healthcare benefit support for members, agents, and partners.',
-        )
-      }
+      setMeta('meta[name="description"]', 'content', 'American Online Benefits Group provides quality, affordable healthcare benefit support for members, agents, and partners.')
+      setMeta('link[rel="canonical"]', 'href', 'https://aobgrp.com/')
+      setMeta('meta[property="og:title"]', 'content', 'American Online Benefits Group')
+      setMeta('meta[property="og:description"]', 'content', 'Quality, affordable healthcare benefit support for members, agents, and partners.')
+      setMeta('meta[property="og:url"]', 'content', 'https://aobgrp.com/')
+      setMeta('meta[property="og:image"]', 'content', 'https://aobgrp.com/brand/hero-healthcare.jpg')
+      setMeta('meta[name="twitter:title"]', 'content', 'American Online Benefits Group')
+      setMeta('meta[name="twitter:description"]', 'content', 'Quality, affordable healthcare benefit support for members, agents, and partners.')
     }
   }, [])
 

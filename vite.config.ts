@@ -49,6 +49,19 @@ function localApiPlugin(): Plugin {
               return
             }
 
+            if (message.length < 10) {
+              res.writeHead(400, { 'Content-Type': 'application/json' })
+              res.end(JSON.stringify({ message: 'Message must be at least 10 characters.' }))
+              return
+            }
+
+            const validSubjects = ['Member Services', 'Agents & Partners']
+            if (!validSubjects.includes(subject)) {
+              res.writeHead(400, { 'Content-Type': 'application/json' })
+              res.end(JSON.stringify({ message: 'Invalid department selection.' }))
+              return
+            }
+
             const apiKey = process.env.RESEND_API_KEY
             const fromEmail = process.env.RESEND_FROM_EMAIL ?? 'noreply@aobgrp.com'
             const toEmail = process.env.RESEND_TO_EMAIL ?? 'info@aobgrp.com'

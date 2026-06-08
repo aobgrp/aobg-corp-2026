@@ -5,10 +5,27 @@ import { checkBotId } from 'botid/server'
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const VALID_SUBJECTS = ['Member Services', 'Agents & Partners'] as const
 const MAX_NAME = 100
-const MAX_SUBJECT = 200
 const MAX_EMAIL = 254
 const MAX_MESSAGE = 5000
+const MIN_MESSAGE = 10
+
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
+const RATE_LIMIT = 5
+const RATE_WINDOW_MS = 10 * 60 * 1000
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const entry = rateLimitMap.get(ip)
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS })
+    return true
+  }
+  if (entry.count >= RATE_LIMIT) return false
+  entry.count++
+  return true
+}
 
 function escapeHtml(input: string): string {
   return input
@@ -24,9 +41,22 @@ function normalize(value: unknown): string {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  res.setHeader('Cache-Control', 'no-store')
+  res.setHeader('X-Content-Type-Options', 'nosniff')
+
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
     return res.status(405).json({ message: 'Method not allowed' })
+  }
+
+  const ip = normalize(
+    Array.isArray(req.headers['x-forwarded-for'])
+      ? req.headers['x-forwarded-for'][0]
+      : req.headers['x-forwarded-for'],
+  ) || 'unknown'
+
+  if (!checkRateLimit(ip)) {
+    return res.status(429).json({ message: 'Too many requests. Please try again later.' })
   }
 
   const botCheck = await checkBotId({ advancedOptions: { headers: req.headers } })
@@ -50,12 +80,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ message: 'All fields are required.' })
   }
 
-  if (name.length > MAX_NAME || email.length > MAX_EMAIL || subject.length > MAX_SUBJECT || message.length > MAX_MESSAGE) {
+  if (name.length > MAX_NAME || email.length > MAX_EMAIL || message.length > MAX_MESSAGE) {
     return res.status(400).json({ message: 'One or more fields exceed the allowed length.' })
+  }
+
+  if (message.length < MIN_MESSAGE) {
+    return res.status(400).json({ message: 'Message must be at least 10 characters.' })
   }
 
   if (!EMAIL_REGEX.test(email)) {
     return res.status(400).json({ message: 'Please provide a valid email address.' })
+  }
+
+  if (!(VALID_SUBJECTS as readonly string[]).includes(subject)) {
+    return res.status(400).json({ message: 'Invalid department selection.' })
   }
 
   try {

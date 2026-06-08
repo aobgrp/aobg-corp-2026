@@ -76,6 +76,7 @@ export function ContactForm({ defaultSubject = 'Member Services' }: { defaultSub
               name="name"
               type="text"
               required
+              aria-required="true"
               autoComplete="name"
               maxLength={100}
               disabled={disabled}
@@ -92,6 +93,7 @@ export function ContactForm({ defaultSubject = 'Member Services' }: { defaultSub
               name="email"
               type="email"
               required
+              aria-required="true"
               autoComplete="email"
               inputMode="email"
               maxLength={254}
@@ -110,6 +112,7 @@ export function ContactForm({ defaultSubject = 'Member Services' }: { defaultSub
             id="subject"
             name="subject"
             required
+            aria-required="true"
             disabled={disabled}
             defaultValue={defaultSubject}
             className={`${inputClasses} cursor-pointer`}
@@ -127,7 +130,9 @@ export function ContactForm({ defaultSubject = 'Member Services' }: { defaultSub
             id="message"
             name="message"
             required
+            aria-required="true"
             rows={4}
+            minLength={10}
             maxLength={5000}
             disabled={disabled}
             className="flex min-h-[120px] w-full rounded-md border border-input bg-background/50 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors hover:border-primary/50 resize-y"
@@ -144,7 +149,7 @@ export function ContactForm({ defaultSubject = 'Member Services' }: { defaultSub
           )}
 
           {status === 'success' && (
-            <div className="flex items-center gap-2 rounded-md bg-emerald-500/10 p-3 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+            <div className="flex items-center gap-2 rounded-md bg-emerald-500/10 p-3 text-sm font-medium text-emerald-700 dark:text-emerald-300">
               <CheckCircle2 className="h-4 w-4 shrink-0" aria-hidden="true" />
               <span>Your message has been sent successfully. We will be in touch soon.</span>
             </div>
