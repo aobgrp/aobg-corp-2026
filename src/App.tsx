@@ -154,7 +154,7 @@ function Header() {
         {/* Mobile Menu Toggle */}
         <button
           type="button"
-          className="md:hidden flex items-center justify-center p-2 text-foreground rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="md:hidden flex items-center justify-center p-3 text-foreground rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           onClick={() => setIsMenuOpen((open) => !open)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMenuOpen}

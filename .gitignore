@@ -33,3 +33,4 @@ dist-ssr
 
 # Pages staged for future release — keep local only
 src/pages/ClosingPage.tsx
+.vercel
