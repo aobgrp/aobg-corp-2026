@@ -277,13 +277,16 @@ function About() {
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="relative overflow-hidden rounded-3xl shadow-2xl aspect-[4/5] sm:aspect-square lg:aspect-[4/5] group hidden lg:block"
         >
-          <img
-            src="/brand/agents-about-image.jpg"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          />
+          <picture>
+            <source srcSet="/brand/agents-about-image.webp" type="image/webp" />
+            <img
+              src="/brand/agents-about-image.jpg"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-t from-[#022A4E]/95 via-primary/40 to-transparent" />
 
           <div className="absolute inset-0 flex flex-col justify-end p-8 sm:p-10">
