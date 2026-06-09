@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
+import { track } from '@vercel/analytics'
 import { Button } from '@/components/ui/button'
 
 const inputClasses =
@@ -30,6 +31,7 @@ export function ContactForm({ defaultSubject = 'Member Services' }: { defaultSub
         throw new Error(body?.message || 'We could not send your message. Please try again.')
       }
 
+      track('Contact Form Submitted', { department: data.subject as string })
       setStatus('success')
       form.reset()
 

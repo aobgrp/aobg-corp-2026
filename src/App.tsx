@@ -10,7 +10,7 @@ import {
   X,
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
-import { Analytics } from '@vercel/analytics/react'
+import { Analytics, track } from '@vercel/analytics/react'
 
 import { ContactForm } from '@/components/ContactForm'
 import { Button } from '@/components/ui/button'
@@ -145,7 +145,7 @@ function Header() {
 
         <div className="hidden items-center gap-4 md:flex">
           <Button asChild size="lg" className="px-8 text-base font-bold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
-            <a href={memberPortalUrl} target="_blank" rel="noopener noreferrer">
+            <a href={memberPortalUrl} target="_blank" rel="noopener noreferrer" onClick={() => track('Member Portal Opened', { location: 'header' })}>
               Member Portal
             </a>
           </Button>
@@ -188,7 +188,7 @@ function Header() {
               ))}
               <div className="pt-2 border-t border-border/50">
                 <Button asChild size="lg" className="w-full mt-4 h-14 text-lg font-bold">
-                  <a href={memberPortalUrl} target="_blank" rel="noopener noreferrer">
+                  <a href={memberPortalUrl} target="_blank" rel="noopener noreferrer" onClick={() => track('Member Portal Opened', { location: 'mobile_menu' })}>
                     Member Portal
                   </a>
                 </Button>
@@ -241,12 +241,12 @@ function Hero() {
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row w-full sm:w-auto">
             <Button asChild size="lg" className="h-14 px-10 text-lg font-bold w-full sm:w-auto bg-white text-primary shadow-lg shadow-black/10 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-xl hover:shadow-black/20">
-              <a href={memberPortalUrl} target="_blank" rel="noopener noreferrer">
+              <a href={memberPortalUrl} target="_blank" rel="noopener noreferrer" onClick={() => track('Member Portal Opened', { location: 'hero' })}>
                 Member Portal
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="h-14 px-10 text-lg font-bold w-full sm:w-auto border-white/30 bg-white/10 text-white backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-white/20 hover:text-white">
-              <a href="#contact">
+              <a href="#contact" onClick={() => track('Contact Us Clicked', { location: 'hero' })}>
                 Contact Us
               </a>
             </Button>
@@ -374,6 +374,7 @@ function ContactSection() {
               <a
                 href="tel:18889182386"
                 className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
+                onClick={() => track('Phone Number Clicked')}
               >
                 <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
                 888-918-2386
@@ -382,6 +383,7 @@ function ContactSection() {
               <a
                 href="mailto:members@aobgrp.com"
                 className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
+                onClick={() => track('Email Clicked', { address: 'members@aobgrp.com' })}
               >
                 <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
                 members@aobgrp.com
@@ -422,10 +424,10 @@ function SupportCard({
         <CardContent className={`flex flex-col gap-5 relative z-10 ${hideHeader ? 'p-8 sm:p-10' : ''}`}>
           {!hideHeader && <Separator className="bg-white/20" />}
           <div className="grid gap-4">
-            <ContactRow icon={Phone} label="Phone" href={card.phoneHref}>
+            <ContactRow icon={Phone} label="Phone" href={card.phoneHref} onClick={() => track('Phone Number Clicked')}>
               {card.phone}
             </ContactRow>
-            <ContactRow icon={Mail} label="Email" href={card.emailHref}>
+            <ContactRow icon={Mail} label="Email" href={card.emailHref} onClick={() => track('Email Clicked', { address: card.email })}>
               {card.email}
             </ContactRow>
             {card.address && (
@@ -451,6 +453,7 @@ function SupportCard({
               target={card.actionExternal ? '_blank' : undefined}
               rel={card.actionExternal ? 'noopener noreferrer' : undefined}
               className="flex items-center justify-center"
+              onClick={() => track('Member Portal Opened', { location: 'member_services_card' })}
             >
               {card.action}
             </a>
@@ -465,16 +468,19 @@ function ContactRow({
   icon: Icon,
   label,
   href,
+  onClick,
   children,
 }: {
   icon: typeof Phone
   label: string
   href: string
+  onClick?: () => void
   children: React.ReactNode
 }) {
   return (
     <a
       href={href}
+      onClick={onClick}
       className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md shadow-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10 hover:shadow-md group-hover:border-white/20 text-white"
     >
       <Icon className="mt-0.5 text-white/80 transition-colors group-hover:text-white" aria-hidden="true" />
