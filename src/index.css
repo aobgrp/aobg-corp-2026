@@ -17,6 +17,7 @@
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
   --color-destructive: hsl(var(--destructive));
+  --color-announcement: hsl(var(--announcement));
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -36,6 +37,7 @@
   --accent: 212 33% 83%;
   --accent-foreground: 236 57% 22%;
   --destructive: 0 100% 46%;
+  --announcement: 350 78% 26%;
   --border: 217 28% 86%;
   --input: 217 28% 86%;
   --ring: 205 93% 27%;
