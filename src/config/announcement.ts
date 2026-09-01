@@ -3,7 +3,7 @@
 // To remove it: set `enabled` to false (or clear `message`), then redeploy.
 export const announcement = {
   /** Set to false to hide the banner sitewide. */
-  enabled: false,
+  enabled: true,
   /** The message shown to all visitors. Keep it short. */
-  message: 'Our offices will be closed on Friday, July 3rd, 2026 in observance of Independence Day.',
+  message: 'Our offices will be closed on Monday, September 7, 2026 in observance of Labor Day.',
 } as const
